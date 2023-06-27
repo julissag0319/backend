@@ -1,16 +1,16 @@
+
 import { Departamento } from "../../modelos/departamento";
 import { IDepartamento } from "../../modelos/departamento/interfaz";
+import { conexion } from "@src/conexion/Conexion";
 
 //CLASE 
 export class Controlador_Departamento {
 
 //Listar Todos los Departamentos
   async tomarTodoDepartamento() {
-    return await Departamento.findAll({
-      where: {
-        id_Estado: 1,
-      },
-    });
+    //relacion (d.*) para traer td los campos del depart la p es la variable de Persona 
+    const [resultado] = await conexion.query("Select d.*, (Select count (*) From Persona p Where p.id_Departamento = d.id_Departamento ) Persona From Departamento As d where d.id_Estado = 1")
+    return resultado 
   }
 
 //Listar o Tomar solo uno
