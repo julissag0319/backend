@@ -1,17 +1,16 @@
 import { Usuario } from "../../modelos/usuario";
 import { IUsuario } from "../../modelos/usuario/interfaz";
+import { conexion } from "@src/conexion/Conexion";
 
 //CLASE 
 export class Controlador_Usuario {
 
-//Listar Todos los Usuarios de los Empleados
+//Listar Todos los Usuarios 
   async tomarTodoUsuario() {
-    return await Usuario.findAll({
-      where: {
-        id_Estado: 1,
-      },
-    });
-  }
+      //relacion (d.*) para traer td los campos del depart la p es la variable de Persona 
+      const [resultado] = await conexion.query("Select d.*, (Select count (*) From Persona p Where p.id_Usuario = d.id_Usuario ) Persona From Usuario As d where d.id_Estado = 1")
+      return resultado 
+    }
 
 //Listar o Tomar solo un Usuario 
   async tomarUnUsuario(id: number) {
