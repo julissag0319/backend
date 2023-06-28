@@ -1,17 +1,20 @@
 import { Tipo_Cargo } from "../../modelos/tipo_Cargo";
 import { ITipo_Cargo } from "../../modelos/tipo_Cargo/interfaz";
+import { conexion } from "@src/conexion/Conexion";
 
 //CLASE 
 export class Controlador_Tipo_Cargo {
 
-//Listar Todos 
-  async tomarTodoTipo_Cargo() {
-    return await Tipo_Cargo.findAll({
-      where: {
-        id_Estado: 1,
-      },
-    });
-  }
+
+
+//Listar Todos
+async tomarTodoTipo_Cargo() {
+  //relacion (d.*) para traer td los campos del depart la p es la variable de Persona 
+  const [resultado] = await conexion.query("Select d.*, (Select count (*) From Persona p Where p.id_Tipo_Cargo = d.id_Tipo_Cargo ) Persona From Tipo_Cargo As d where d.id_Estado = 1")
+  return resultado 
+}
+
+
 
 //Listar o Tomar solo un Tipo_Cargo 
   async tomarUnTipo_Cargo(id: number) {
