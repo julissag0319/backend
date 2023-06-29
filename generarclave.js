@@ -1,0 +1,1 @@
+require("bcrypt").hash("JJM1997@", 10).then(console.log);
