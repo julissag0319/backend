@@ -14,6 +14,8 @@ export const conexion = new Sequelize({
       userName: process.env.USERNAME, // tu usuario de compu
     },
   },
+
+  
   host: "localhost",
   database: "USADBASE",
   username: process.env.USERNAME2, // el usuario de sql
