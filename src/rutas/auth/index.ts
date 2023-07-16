@@ -16,10 +16,13 @@ router.post("/login", async (req, res) => {
   });
 
   if (!usuario) {
-    res.status(401).json({ error: "Credenciales incorrectas" });
+    console.log ("usuario")
+        res.status(401).json({ error: "Credenciales incorrectas" });
     return;
   }
+  
   if (!(await compare(req.body.contrasena, usuario.contrasena_Usuario))) {
+    console.log ("contraseña")
     res.status(401).json({ error: "Credenciales incorrectas" });
     return;
   }

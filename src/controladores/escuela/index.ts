@@ -1,6 +1,6 @@
 import { Escuela } from "../../modelos/escuela";
 import { IEscuela } from "../../modelos/escuela/interfaz";
-import { conexion } from "@src/conexion/Conexion";
+//import { conexion } from "@src/conexion/Conexion";
 
 //CLASE 
 export class Controlador_Escuela {
@@ -8,11 +8,12 @@ export class Controlador_Escuela {
 
 //Listar Todos los Departamentos
 async tomarTodoEscuela() {
-  //relacion (d.*) para traer td los campos del depart la p es la variable de Persona 
-  const [resultado] = await conexion.query("Select d.*, (Select count (*) From Persona p Where p.id_Escuela = d.id_Escuela ) Persona From Escuela As d where d.id_Estado = 1")
-  return resultado 
+  return await Escuela.findAll({
+    where: {
+      id_Estado: 1,
+    },
+  });
 }
-
 
 
 //Listar o Tomar solo un Escuela
