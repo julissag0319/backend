@@ -1,5 +1,6 @@
 import { Usuario } from "../../modelos/usuario";
 import { IUsuario } from "../../modelos/usuario/interfaz";
+
 //import { conexion } from "@src/conexion/Conexion";
 
 //CLASE 
@@ -30,6 +31,7 @@ export class Controlador_Usuario {
 //Crear 
   async crearUno(data: IUsuario) {
     try {
+     
       const { ...objectData } = data;
       const result = await Usuario.create(objectData);
       return result;

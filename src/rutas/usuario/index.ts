@@ -1,7 +1,7 @@
 import { Router, Request, Response } from "express";
 import { Controlador_Usuario } from "../../controladores/usuario";
 import { IUsuario } from "../../modelos/usuario/interfaz";
-
+import { hash } from "bcrypt";
 const router = Router();
 const UsuarioInstacia = new Controlador_Usuario();
 
@@ -33,6 +33,8 @@ router.get("/usuario/:id", async (req: Request, res: Response) => {
 
 router.post("/nuevo-usuario", async (req: Request, res: Response) => {
     try {
+        const contrasenaEncryptada = await hash(req.body.contrasena_Usuario, 10);
+        req.body.contrasena_Usuario = contrasenaEncryptada;
         const { ...myObject } = req.body as IUsuario;
         await UsuarioInstacia.crearUno(myObject);
         res.status(201).json({ message: "Registro actualizado! " });

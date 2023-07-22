@@ -15,7 +15,7 @@ const router = Router();
 
 router.use("/departamento", authMiddleware, Departamentorutas);
 router.use("/tipo_cargo", authMiddleware, tipo_cargorutas);
-router.use("/Tipo_Usuario", authMiddleware, Tipo_Usuariorutas);
+router.use("/Tipo_Usuario", Tipo_Usuariorutas);
 router.use("/municipio", authMiddleware, Municipiorutas);
 router.use("/red", authMiddleware, Redrutas);
 router.use("/usuario", authMiddleware, Usuariorutas);
