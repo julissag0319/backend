@@ -18,6 +18,21 @@ router.get("/", async (_req: Request, res: Response) => {
     }
 });
 
+router.get("/cantidad_redes", async (_req: Request, res: Response) => {
+    try{
+        const Red = await RedInstacia.CantidadRedPorEscuelas();
+        if(Red.length === 0){
+            res.status(200).json({ message: "No se encontraron registros" });
+        }else{
+            res.status(200).json(Red);
+        }
+    }catch(error){
+        res.status(500).json({ message: "Error al recuperar los datos" });
+    }
+});
+
+
+
 router.get("/red/:id", async (req: Request, res: Response) => {
     try{
         const { id } = req.params;

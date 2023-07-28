@@ -1,6 +1,6 @@
 import { Persona } from "../../modelos/persona";
 import { IPersona } from "../../modelos/persona/interfaz";
-
+import { conexion } from "@src/conexion/Conexion";
 //CLASE 
 export class Controlador_Persona {
 
@@ -11,6 +11,18 @@ export class Controlador_Persona {
         id_Estado: 1,
       },
     });
+  }
+
+  async CantidadSupervisores() {
+    //relacion (d.*) para traer td los campos del depart la p es la variable de Persona 
+    const [resultado] = await conexion.query(`select 
+    CONCAT(p.nombre_Persona,' ',p.apellido_Persona) 'Supervisor',
+    count(e.id_Escuela) 'Cantidad'
+    from Escuela e
+    full join Persona p on p.id_Persona = e.id_Persona
+    join Tipo_Cargo c on c.id_Tipo_Cargo = p.id_Tipo_Cargo
+    group by p.nombre_Persona,p.apellido_Persona`);
+      return resultado;
   }
 
 //Listar o Tomar solo un Persona de los Empleados

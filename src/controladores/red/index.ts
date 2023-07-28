@@ -1,6 +1,6 @@
 import { Red } from "../../modelos/red";
 import { IRed } from "../../modelos/red/interfaz";
-
+import { conexion } from "@src/conexion/Conexion";
 //CLASE 
 export class Controlador_Red {
 
@@ -11,6 +11,14 @@ export class Controlador_Red {
         id_Estado: 1,
       },
     });
+  }
+
+  async CantidadRedPorEscuelas() {
+    //relacion (d.*) para traer td los campos del depart la p es la variable de Persona 
+    const [resultado] = await conexion.query(`select r.descripcion_Red 'Red', count(e.id_Escuela) 'Cantidad' from Escuela e
+    full join Red r on r.id_Red = e.id_Red
+    group by r.descripcion_Red`);
+      return resultado;
   }
 
 //Listar o Tomar solo un Red

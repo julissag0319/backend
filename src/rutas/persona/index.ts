@@ -17,6 +17,20 @@ router.get("/", async (_req: Request, res: Response) => {
         res.status(500).json({ message: "Error al recuperar los datos" });
     }
 });
+
+router.get("/cantidad_supervisores", async (_req: Request, res: Response) => {
+    try{
+        const Persona = await PersonaInstacia.CantidadSupervisores();
+        if(Persona.length === 0){
+            res.status(200).json({ message: "No se encontraron registros" });
+        }else{
+            res.status(200).json(Persona);
+        }
+    }catch(error){
+        res.status(500).json({ message: "Error al recuperar los datos" });
+    }
+});
+
 ///tomar una persona 
 router.get("/persona/:id", async (req: Request, res: Response) => {
     try{

@@ -13,13 +13,13 @@ import { authMiddleware } from "@src/middlewares/auth";
 
 const router = Router();
 
-router.use("/departamento", authMiddleware, Departamentorutas);
+router.use("/departamento", Departamentorutas);
 router.use("/tipo_cargo", authMiddleware, tipo_cargorutas);
 router.use("/Tipo_Usuario", Tipo_Usuariorutas);
 router.use("/municipio", authMiddleware, Municipiorutas);
-router.use("/red", authMiddleware, Redrutas);
+router.use("/red",  Redrutas);
 router.use("/usuario", authMiddleware, Usuariorutas);
-router.use("/persona", authMiddleware, Personarutas);
+router.use("/persona",  Personarutas);
 router.use("/escuela", authMiddleware, Escuelarutas);
 // no puse el authMiddleware xq el login debe estar disponible sin autenticacion
 router.use("/auth", Auth);

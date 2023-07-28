@@ -18,6 +18,19 @@ router.get("/", async (_req: Request, res: Response) => {
     }
 });
 
+router.get("/cantidad_departamentos", async (_req: Request, res: Response) => {
+    try{
+        const departamentos = await departamentoInstacia.cantidadEscuelasPorDepartamento();
+        if(departamentos.length === 0){
+            res.status(200).json({ message: "No Records Were Found" });
+        }else{
+            res.status(200).json(departamentos);
+        }
+    }catch(error){
+        res.status(500).json({ message: "Error retrieving the data" });
+    }
+});
+
 router.get("/departamento/:id", async (req: Request, res: Response) => {
     try{
         const { id } = req.params;

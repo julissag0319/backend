@@ -13,6 +13,15 @@ export class Controlador_Departamento {
     return resultado 
   }
 
+  async cantidadEscuelasPorDepartamento() {
+    //relacion (d.*) para traer td los campos del depart la p es la variable de Persona 
+    const [resultado] = await conexion.query(`select d.descripcion_Departamento 'Departamento', count(e.id_Escuela) 'Cantidad' from Escuela e
+    full join Departamento d on d.id_Departamento = e.id_Departamento
+    group by d.descripcion_Departamento`);
+      return resultado;
+  }
+
+
 //Listar o Tomar solo uno
   async tomarUnDepartamento(id: number) {
     return await Departamento.findByPk(id);

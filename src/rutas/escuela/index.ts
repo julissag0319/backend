@@ -11,6 +11,7 @@ router.get("/", async (_req: Request, res: Response) => {
         if(Escuela.length === 0){
             res.status(200).json({ message: "No se encontraron registros" });
         }else{
+          //  console.log(Escuela);
             res.status(200).json(Escuela);
         }
     }catch(error){
@@ -34,7 +35,8 @@ router.get("/escuela/:id", async (req: Request, res: Response) => {
 router.post("/nuevo-escuela", async (req: Request, res: Response) => {
     try {
         const { ...myObject } = req.body as IEscuela;
-        await EscuelaInstacia.crearUno(myObject);
+        const data = await EscuelaInstacia.crearUno(myObject);
+        console.log(data);
         res.status(201).json({ message: "Registro actualizado! " });
     }catch(error) {
         res.status(500).json({ message: "Error en el Servidor" });
